@@ -48,12 +48,13 @@ namespace CoubSharp
             public const string ChannelEdit = "channel_edit";
 
         }
+
         /// <summary>
         /// Endpoint url base part
         /// </summary>
-        internal const string _apiUrlBase = "http://coub.com";
-        internal const string _authorizeCodeUrlBase = "/oauth/authorize";
-        internal const string _authorizeTokenUrlBase = "/oauth/token";
+        internal const string ApiUrlBase = "http://coub.com";
+        internal const string AuthorizeCodeUrlBase = "/oauth/authorize";
+        internal const string AuthorizeTokenUrlBase = "/oauth/token";
 
         public string ApplicationId { get; set; }
         public string ApplicationSecret { get; set; }
@@ -78,6 +79,7 @@ namespace CoubSharp
         {
             ApplicationId = appId;
             ApplicationSecret = appSecret;
+            Coubs = new CoubManager();
         }
 
         public string AuthorizationCodeUrlAsync(string redirectUrl, IEnumerable<string> scopes = default(IEnumerable<string>))
@@ -86,15 +88,16 @@ namespace CoubSharp
                 throw new ArgumentNullException("redirectUrl", "redirectUrl can't be null");
             var scopeList = scopes ?? Enumerable.Empty<string>();
             var scope = string.Join("+", scopeList);
-            var url = $"{_apiUrlBase}{_authorizeCodeUrlBase}?response_type=code&client_id={ApplicationId}&redirect_uri={redirectUrl}&scope={scope}";
+            var url = $"{ApiUrlBase}{AuthorizeCodeUrlBase}?response_type=code&client_id={ApplicationId}&redirect_uri={redirectUrl}&scope={scope}";
             return url;
         }
 
         public async Task<string> AuthorizeWithReceiverAsync(ICodeReceiver receiver, IEnumerable<string> scopes = null)
         {
+            if (receiver == null) throw new ArgumentNullException("receiver", "receiver can't be null");
             var scopeList = scopes ?? Enumerable.Empty<string>();
             var scope = string.Join("+", scopeList);
-            var url = $"{_apiUrlBase}{_authorizeCodeUrlBase}?response_type=code&client_id={ApplicationId}&scope={scope}";
+            var url = $"{ApiUrlBase}{AuthorizeCodeUrlBase}?response_type=code&client_id={ApplicationId}&scope={scope}";
             var code = await receiver.ReceiveCodeAsync(url, new System.Threading.CancellationToken());
             return code;
         }
@@ -103,7 +106,7 @@ namespace CoubSharp
         {
             if (code == null)
                 throw new ArgumentNullException("code", "code can't be null");
-            var url = $"{_apiUrlBase}{_authorizeTokenUrlBase}?grant_type=authorization_code&response_type=code&client_id={ApplicationId}&client_secret={ApplicationSecret}&code={code}&redirect_uri={redirectUrl}";
+            var url = $"{ApiUrlBase}{AuthorizeTokenUrlBase}?grant_type=authorization_code&response_type=code&client_id={ApplicationId}&client_secret={ApplicationSecret}&code={code}&redirect_uri={redirectUrl}";
             using (HttpClient httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.PostAsync(url, null);

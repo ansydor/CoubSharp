@@ -45,6 +45,23 @@
   <ItemGroup>
     <Compile Include="CoubService.cs" />
     <Compile Include="Dtos\AuthorizationDto.cs" />
+    <Compile Include="Dtos\CategoryDto.cs" />
+    <Compile Include="Dtos\ChannelDto.cs" />
+    <Compile Include="Dtos\CoubDto.cs" />
+    <Compile Include="Dtos\DimensionsDto.cs" />
+    <Compile Include="Dtos\MediaBlocksDto.cs" />
+    <Compile Include="Dtos\Versions\ExternalDownloadDto.cs" />
+    <Compile Include="Dtos\Versions\FirstFrameVersionsDto.cs" />
+    <Compile Include="Dtos\Versions\FlvAudioVersionsDto.cs" />
+    <Compile Include="Dtos\Versions\AudioVersionsDto.cs" />
+    <Compile Include="Dtos\Versions\FileVersionsDto.cs" />
+    <Compile Include="Dtos\Versions\Html5FileVersionDto.cs" />
+    <Compile Include="Dtos\Versions\ImageVersionsDto.cs" />
+    <Compile Include="Dtos\TagDto.cs" />
+    <Compile Include="Dtos\Versions\IphoneFileVersion.cs" />
+    <Compile Include="Dtos\Versions\MobileFileVersion.cs" />
+    <Compile Include="Dtos\Versions\WebChunkFileVersionDto.cs" />
+    <Compile Include="Dtos\Versions\WebFileVersionDto.cs" />
     <Compile Include="Managers\CoubManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Receivers\LocalhostServerCodeReceiver.cs" />
