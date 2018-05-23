@@ -1,10 +1,11 @@
-﻿using CoubSharp.Dtos.Versions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using CoubSharp.Model.Versions;
 
 namespace CoubSharp.Model
 {
@@ -50,7 +51,7 @@ namespace CoubSharp.Model
         public string OriginalVisibilityType { get; set; }
 
         [JsonProperty("channel_id")]
-        public string ChannelId { get; set; }
+        public int ChannelId { get; set; }
 
         [JsonProperty("created_at")]
         public DateTimeOffset? CreatedAt { get; set; }
@@ -92,7 +93,7 @@ namespace CoubSharp.Model
         public bool? HasSound { get; set; }
 
         [JsonProperty("recoub_to")]
-        public long? RecoubTo { get; set; }
+        public Coub RecoubTo { get; set; }
 
         [JsonProperty("recoubs_count")]
         public int? RecoubsCount { get; set; }
@@ -127,8 +128,8 @@ namespace CoubSharp.Model
         [JsonProperty("promo_winner")]
         public bool? PromoWinner { get; set; }
 
-        [JsonProperty("promo_winner_recoubers")]
-        public string PromoWinnerRecoubers { get; set; }
+        //[JsonProperty("promo_winner_recoubers")]
+        //public string PromoWinnerRecoubers { get; set; }
 
         //[JsonProperty("editorial_info")]
         //public string EditorialIndo { get; set; }

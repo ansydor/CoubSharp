@@ -16,9 +16,9 @@ namespace CoubSharp.Model
         public string Title { get; set; }
 
         [JsonProperty("channed_id")]
-        public string ChannelId { get; set; }
+        public int ChannelId { get; set; }
 
         [JsonProperty("tags")]
-        public string Tags { get; set; }
+        public IEnumerable<string> Tags { get; set; }
     }
 }

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoubService.cs" />
+    <Compile Include="Managers\TimelineManager.cs" />
     <Compile Include="Model\Authorization.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Channel.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Model\Dimensions.cs" />
     <Compile Include="Model\EditCoub.cs" />
     <Compile Include="Model\MediaBlocks.cs" />
+    <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\Versions\ExternalDownload.cs" />
     <Compile Include="Model\Versions\FirstFrameVersions.cs" />
     <Compile Include="Model\Versions\FlvAudioVersions.cs" />
