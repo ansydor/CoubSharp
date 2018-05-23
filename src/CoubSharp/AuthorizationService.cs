@@ -19,7 +19,7 @@ namespace CoubSharp
         /// <param name="scopes">List of scopes</param>
         /// <returns></returns>
         string AuthorizationCodeUrlAsync(string redirectUrl, IEnumerable<string> scopes = default(IEnumerable<string>));
-        Task<string> AuthorizeWithReceiverAsync(ICodeReceiver receiver, IEnumerable<string> scopes = null);
+        Task<string> AuthorizeCodeWithReceiverAsync(ICodeReceiver receiver, IEnumerable<string> scopes = null);
         Task<Authorization> AuthorizeTokenAsync(string redirectUrl, string code);
     }
 

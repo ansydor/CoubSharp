@@ -13,7 +13,8 @@ namespace CoubSharp.Tests.Managers
         [Fact]
         public async Task CoubManagerThrowsArgumentNullException()
         {
-            var sut = new CoubManager();
+            var emptyToken = string.Empty;
+            var sut = new CoubManager(emptyToken);
             await Assert.ThrowsAsync<ArgumentNullException>(()=>sut.GetCoubAsync(null));
         }
 
