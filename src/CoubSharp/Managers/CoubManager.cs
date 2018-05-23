@@ -1,20 +1,27 @@
-﻿using CoubSharp.Dtos;
-using CoubSharp.Enums;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using CoubSharp.Model;
+using CoubSharp.Enums;
 
 namespace CoubSharp.Managers
 {
     public class CoubManager
     {
-
+        private string _accessToken;
         internal const string CoubsUrlBase = "/api/v2/coubs/";
+
+        internal CoubManager(string accessToken)
+        {
+            _accessToken = accessToken;
+        }
+
         public async Task<Coub> GetCoubAsync(string coubId)
         {
             if (string.IsNullOrWhiteSpace(coubId)) throw new ArgumentNullException("coubId", "coubId can't be null or empty");
@@ -29,16 +36,22 @@ namespace CoubSharp.Managers
             }
         }
 
-        public async Task<Coub> EditCoubAsync(string coubId, string token, string title, string channelId, OriginalVisibilityType visibility, IEnumerable<string> tags)
+        public async Task<Coub> EditCoubAsync(string coubId, EditCoub editCoub)
         {
             if (string.IsNullOrWhiteSpace(coubId)) throw new ArgumentNullException("coubId", "coubId can't be null or empty");
-            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}/update_info";
+            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}/update_info?access_token={_accessToken}";
             using (HttpClient httpClient = new HttpClient())
             {
-                var coubDto = JsonConvert.SerializeObject(new { access_token = token, coub = new { title = title, channel_id = channelId, original_visibility_type = visibility.ToString(), tags = tags } });
+                var content = new Dictionary<string, string>
+                {
+                    { "coub[title]", editCoub.Title },
+                    { "coub[channel_id]", editCoub.ChannelId.ToString() },
+                    { "coub[original_visibility_type]", editCoub.OriginalVisibilityType.ToString() },
+                    { "coub[tags]", string.Join(",", editCoub.Tags) }
+                };
 
-                var content = new StringContent(coubDto, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await httpClient.PostAsync(url, content);
+                var formContent = new FormUrlEncodedContent(content);
+                HttpResponseMessage response = await httpClient.PostAsync(url, formContent);
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
                 var coub = JsonConvert.DeserializeObject<Coub>(json);
@@ -46,14 +59,13 @@ namespace CoubSharp.Managers
             }
         }
 
-        public async Task<bool> DeleteCoubAsync(string coubId, string token)
+        public async Task<bool> DeleteCoubAsync(string coubId)
         {
-            //if (coubId < 0) throw new ArgumentOutOfRangeException("coubId", "coubId can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}?access_token={token}";
+            throw new NotImplementedException("Not implemented yet");
+            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}?access_token={_accessToken}";
             using (HttpClient httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.DeleteAsync(url);
-                //response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
                 var action = JObject.Parse(json);
                 var status = action.SelectToken("status").Value<string>();
