@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos.Versions
 {
-    public class FileVersionsDto
+    public class FileVersions
     {
         [JsonProperty("web")]
-        public WebFileVersionDto Web { get; set; }
+        public WebFileVersion Web { get; set; }
 
         [JsonProperty("web_chunks")]
-        public WebChunkFileVersionDto WebChunks { get; set; }
+        public WebChunkFileVersion WebChunks { get; set; }
 
         [JsonProperty("html5")]
-        public Html5FileVersionDto Html5 { get; set; }
+        public Html5FileVersion Html5 { get; set; }
 
         [JsonProperty("iphone")]
         public IphoneFileVersion iphone { get; set; }

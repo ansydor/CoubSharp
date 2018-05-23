@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos
 {
-    public class AuthorizationDto
+    public class Authorization
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

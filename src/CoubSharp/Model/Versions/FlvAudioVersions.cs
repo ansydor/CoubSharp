@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos.Versions
 {
-    public class FlvAudioVersionsDto
+    public class FlvAudioVersions
     {
         public class Chunks
         {

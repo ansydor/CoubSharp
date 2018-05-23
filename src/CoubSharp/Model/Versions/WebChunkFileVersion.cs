@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos.Versions
 {
-    public class Html5FileVersionDto
+    public class WebChunkFileVersion : WebFileVersion
     {
-        [JsonProperty("template")]
-        public string Template { get; set; }
-
-        [JsonProperty("chunks")]
+       [JsonProperty("chunks")]
         public IEnumerable<int> Chunks { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos
 {
-    public class TagDto
+    public class Tag
     {
         [JsonProperty("id")]
         public long Id { get; set; }
