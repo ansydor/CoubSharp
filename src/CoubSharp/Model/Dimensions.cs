@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoubSharp.Dtos
+namespace CoubSharp.Model
 {
     public class Dimensions
     {
