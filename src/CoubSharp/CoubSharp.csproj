@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizationService.cs" />
     <Compile Include="CoubService.cs" />
     <Compile Include="Managers\TimelineManager.cs" />
     <Compile Include="Model\Authorization.cs" />

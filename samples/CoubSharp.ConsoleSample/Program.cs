@@ -21,7 +21,7 @@ namespace CoubSharp.ConsoleSample
                 IAuthorizationService authorizationService = new AuthorizationService("", "");
                 LocalhostServerCodeReceiver receiver = new LocalhostServerCodeReceiver("http://localhost:54325/");
 
-                var code = await authorizationService.AuthorizeWithReceiverAsync(receiver, new string[] { AuthorizationService.Scope.LoggedIn, AuthorizationService.Scope.Recoub, AuthorizationService.Scope.Create, AuthorizationService.Scope.ChannelEdit, AuthorizationService.Scope.Follow });
+                var code = await authorizationService.AuthorizeCodeWithReceiverAsync(receiver, new string[] { AuthorizationService.Scope.LoggedIn, AuthorizationService.Scope.Recoub, AuthorizationService.Scope.Create, AuthorizationService.Scope.ChannelEdit, AuthorizationService.Scope.Follow });
                 var token = await authorizationService.AuthorizeTokenAsync("http://localhost:54325/", code);
 
                 ICoubService coubService = new CoubService(token.AccessToken);

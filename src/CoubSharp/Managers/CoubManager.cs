@@ -17,7 +17,7 @@ namespace CoubSharp.Managers
         private string _accessToken;
         internal const string CoubsUrlBase = "/api/v2/coubs/";
 
-        internal CoubManager(string accessToken)
+        public CoubManager(string accessToken)
         {
             _accessToken = accessToken;
         }
