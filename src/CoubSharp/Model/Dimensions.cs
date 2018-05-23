@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos
 {
-    public class DimensionsDto
+    public class Dimensions
     {
         [JsonProperty("big")]
         public IEnumerable<int> Big { get; set; }

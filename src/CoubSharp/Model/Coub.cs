@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos
 {
-    public class CoubDto
+    public class Coub
     {
         [JsonProperty("flag")]
         public string Flag { get; set; }
@@ -146,30 +146,30 @@ namespace CoubSharp.Dtos
         public bool? AdsDisabled { get; set; }
 
         [JsonProperty("file_versions")]
-        public FileVersionsDto FileVersions { get; set; }
+        public FileVersions FileVersions { get; set; }
 
         [JsonProperty("tags")]
-        public IEnumerable<TagDto> Tags { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
 
         [JsonProperty("categories")]
-        public IEnumerable<CategoryDto> Categories { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
 
         [JsonProperty("image_versions")]
-        public ImageVersionsDto ImageVersions { get; set; }
+        public ImageVersions ImageVersions { get; set; }
 
         [JsonProperty("channel")]
-        public ChannelDto Channel { get; set; }
+        public Channel Channel { get; set; }
 
         [JsonProperty("audio_versions")]
-        public AudioVersionsDto AudioVersions { get; set; }
+        public AudioVersions AudioVersions { get; set; }
 
         [JsonProperty("flv_audio_versions")]
-        public FlvAudioVersionsDto FlvAudioVersions { get; set; }
+        public FlvAudioVersions FlvAudioVersions { get; set; }
 
         [JsonProperty("first_frame_versions")]
-        public FirstFrameVersionsDto FirstFrameVersions { get; set; }
+        public FirstFrameVersions FirstFrameVersions { get; set; }
         [JsonProperty("dimensions")]
-        public DimensionsDto Dimensions { get; set; }
+        public Dimensions Dimensions { get; set; }
 
         [JsonProperty("age_restricted")]
         public bool? AgeRestricted { get; set; }
@@ -187,7 +187,7 @@ namespace CoubSharp.Dtos
         public bool? Banned { get; set; }
 
         [JsonProperty("external_download")]
-        public ExternalDownloadDto ExternalDownload { get; set; }
+        public ExternalDownload ExternalDownload { get; set; }
 
         [JsonProperty("picture")]
         public string Picture { get; set; }
@@ -200,7 +200,7 @@ namespace CoubSharp.Dtos
         [JsonProperty("percent_done")]
         public int? PercentDone { get; set; }
 
-        [JsonProperty("media_blocks")]
-        public MediaBlocksDto MediaBlocks { get; set; }
+        //[JsonProperty("media_blocks")]
+        //public MediaBlocks MediaBlocks { get; set; }
     }
 }

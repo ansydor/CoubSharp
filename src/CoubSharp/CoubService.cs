@@ -102,7 +102,7 @@ namespace CoubSharp
             return code;
         }
 
-        public async Task<AuthorizationDto> AuthorizeTokenAsync(string redirectUrl, string code)
+        public async Task<Authorization> AuthorizeTokenAsync(string redirectUrl, string code)
         {
             if (code == null)
                 throw new ArgumentNullException("code", "code can't be null");
@@ -112,7 +112,7 @@ namespace CoubSharp
                 HttpResponseMessage response = await httpClient.PostAsync(url, null);
                 response.EnsureSuccessStatusCode();
                 var result = await response.Content.ReadAsStringAsync();
-                var authorization = JsonConvert.DeserializeObject<AuthorizationDto>(result);
+                var authorization = JsonConvert.DeserializeObject<Authorization>(result);
                 return authorization;
             }
         }

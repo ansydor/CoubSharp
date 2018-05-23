@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoubSharp.Dtos
+namespace CoubSharp.Enums
 {
-    public class MediaBlocksDto
+    public enum OriginalVisibilityType
     {
-         
+        @public = 1,
+        friend = 2,
+        unlisted = 3,
+        @private = 4
     }
 }

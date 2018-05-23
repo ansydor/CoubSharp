@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos.Versions
 {
-    public class FirstFrameVersionsDto
+    public class WebFileVersion
     {
         [JsonProperty("template")]
         public string Template { get; set; }
 
-        [JsonProperty("versions")]
+        [JsonProperty("types")]
+        public IEnumerable<string> Types { get; set; }
+
+        [JsonProperty("version")]
         public IEnumerable<string> Versions { get; set; }
     }
 }

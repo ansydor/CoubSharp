@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos.Versions
 {
-    public class ImageVersionsDto
+    public class ImageVersions
     {
         [JsonProperty("template")]
         public string Template { get; set; }

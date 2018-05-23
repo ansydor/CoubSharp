@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Dtos.Versions
 {
-    public class ExternalDownloadDto
+    public class ExternalDownload
     {
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -15,15 +15,15 @@ namespace CoubSharp.Dtos.Versions
         [JsonProperty("url")]
         public string Url { get; set; }
 
-        //Defined conversion from ExternalDownloadDto to bool
-        public static implicit operator bool(ExternalDownloadDto item)
+        //Defined conversion from ExternalDownload to bool
+        public static implicit operator bool(ExternalDownload item)
         {
             return item != null;
         }
-        //Defined conversion from bool to empty ExternalDownloadDto if True or null if False
-        public static implicit operator ExternalDownloadDto(bool item)
+        //Defined conversion from bool to empty ExternalDownload if True or null if False
+        public static implicit operator ExternalDownload(bool item)
         {
-            return item ? new ExternalDownloadDto() : null;
+            return item ? new ExternalDownload() : null;
         }
     }
 }
