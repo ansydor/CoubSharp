@@ -7,12 +7,30 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Model.Versions
 {
+    public class QualityVersions
+    {
+        [JsonProperty("high")]
+        public UrlVersions High { get; set; }
+        [JsonProperty("med")]
+        public UrlVersions Medium { get; set; }
+        [JsonProperty("small")]
+        public UrlVersions Small { get; set; }
+    }
+
+    public class UrlVersions
+    {
+        [JsonProperty("size")]
+        public int Size { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+    }
+
     public class Html5FileVersion
     {
-        [JsonProperty("template")]
-        public string Template { get; set; }
+        [JsonProperty("video")]
+        public QualityVersions Video { get; set; }
 
-        [JsonProperty("chunks")]
-        public IEnumerable<int> Chunks { get; set; }
+        [JsonProperty("audio")]
+        public QualityVersions Audio { get; set; }
     }
 }

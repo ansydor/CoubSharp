@@ -38,24 +38,22 @@ namespace CoubSharp.Managers
             public const string Oldest = "oldest";
         }
 
-        private string _accessToken;
+        public  string AccessToken { get; set; }
         internal const string TimelineUrlBase = "/api/v2/timeline";
 
-        internal TimelineManager()
+        public TimelineManager(string accessToken)
         {
-
+            AccessToken = accessToken;
         }
 
-        public void ApplyAccessToken(string token)
+        public TimelineManager()
         {
-            _accessToken = token;
         }
-
 
         public async Task<Timeline> GetUserTimelineAsync(int page, int perPage)
         {
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}?access_token={_accessToken}&page={page}&per_page={perPage}";
+            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}?access_token={AccessToken}&page={page}&per_page={perPage}";
             using (HttpClient httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.GetAsync(url);
