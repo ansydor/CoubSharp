@@ -14,12 +14,15 @@ namespace CoubSharp.Managers
 {
     public class CoubManager
     {
-        private string _accessToken;
+        public string AccessToken { get; set; }
         internal const string CoubsUrlBase = "/api/v2/coubs/";
 
+        public CoubManager()
+        {
+        }
         public CoubManager(string accessToken)
         {
-            _accessToken = accessToken;
+            AccessToken = accessToken;
         }
 
         public async Task<Coub> GetCoubAsync(string coubId)
@@ -39,7 +42,7 @@ namespace CoubSharp.Managers
         public async Task<Coub> EditCoubAsync(string coubId, EditCoub editCoub)
         {
             if (string.IsNullOrWhiteSpace(coubId)) throw new ArgumentNullException("coubId", "coubId can't be null or empty");
-            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}/update_info?access_token={_accessToken}";
+            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}/update_info?access_token={AccessToken}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var content = new Dictionary<string, string>
@@ -62,7 +65,7 @@ namespace CoubSharp.Managers
         public async Task<bool> DeleteCoubAsync(string coubId)
         {
             throw new NotImplementedException("Not implemented yet");
-            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}?access_token={_accessToken}";
+            var url = $"{CoubService.ApiUrlBase}{CoubsUrlBase}{coubId}?access_token={AccessToken}";
             using (HttpClient httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.DeleteAsync(url);

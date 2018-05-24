@@ -37,6 +37,8 @@ namespace CoubSharp
         public CoubService(string accessToken)
         {
             _acceessToken = accessToken ?? throw new ArgumentNullException("accessToken", "accessToken can't be null");
+            Coubs = new CoubManager(accessToken);
+            Timelines = new TimelineManager(accessToken);
         }
 
         /// <summary>

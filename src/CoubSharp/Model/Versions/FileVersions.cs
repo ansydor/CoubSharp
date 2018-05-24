@@ -19,6 +19,6 @@ namespace CoubSharp.Model.Versions
         public Html5FileVersion Html5 { get; set; }
 
         [JsonProperty("iphone")]
-        public IphoneFileVersion iphone { get; set; }
+        public IphoneFileVersion Iphone { get; set; }
     }
 }
