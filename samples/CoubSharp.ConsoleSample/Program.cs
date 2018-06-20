@@ -64,8 +64,12 @@ namespace CoubSharp.ConsoleSample
 
                 #region search
                 // Sample: General search by query
+                //SearchSnippets snippet = new SearchSnippets();
+                //var searchResult = await snippet.GeneralSearchAsync("best coub");
+
+                // Sample: Search among channels
                 SearchSnippets snippet = new SearchSnippets();
-                var searchResult = await snippet.GeneralSearchAsync("best coub");
+                var searchResult = await snippet.SearchChannelsAsync("best coub");
                 #endregion
             }).Wait();
         }
