@@ -49,6 +49,7 @@
     <Compile Include="Dto\MakeRecoubDto.cs" />
     <Compile Include="Managers\ChannelManager.cs" />
     <Compile Include="Managers\RecoubManager.cs" />
+    <Compile Include="Managers\SearchService.cs" />
     <Compile Include="Managers\TimelineManager.cs" />
     <Compile Include="Model\Authorization.cs" />
     <Compile Include="Model\Category.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Model\Coub.cs" />
     <Compile Include="Model\Dimensions.cs" />
     <Compile Include="Model\EditCoub.cs" />
+    <Compile Include="Model\GeneralSearchResult.cs" />
     <Compile Include="Model\MediaBlocks.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\Versions\ExternalDownload.cs" />

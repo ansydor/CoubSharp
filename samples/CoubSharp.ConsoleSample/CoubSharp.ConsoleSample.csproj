@@ -47,6 +47,7 @@
     <Compile Include="Snippets\AuthorizeSnippets.cs" />
     <Compile Include="Snippets\ChannelSnippets.cs" />
     <Compile Include="Snippets\CoubSnippets.cs" />
+    <Compile Include="Snippets\SearchSnippets.cs" />
     <Compile Include="Snippets\TimelineSnippets.cs" />
   </ItemGroup>
   <ItemGroup>
