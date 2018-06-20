@@ -60,6 +60,10 @@ namespace CoubSharp.ConsoleSample
                 //var token = await auth.AuthorizeAsync();
                 //TimelineSnippets snippet = new TimelineSnippets();
                 //var timeline = await snippet.GetUserTimelineAsync(token);
+
+                // Sample: Get explore timeline
+                //TimelineSnippets snippet = new TimelineSnippets();
+                //var timeline = await snippet.GetExploreTimelineAsync();
                 #endregion
 
                 #region search

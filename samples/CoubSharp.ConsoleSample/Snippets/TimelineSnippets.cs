@@ -24,5 +24,12 @@ namespace CoubSharp.ConsoleSample.Snippets
             var timeline = await coubService.Timelines.GetUserTimelineAsync(1, 20);
             return timeline;
         }
+
+        public async Task<Timeline> GetExploreTimelineAsync()
+        {
+            ICoubService coubService = new CoubService(string.Empty);
+            var timeline = await coubService.Timelines.GetExploreTimelineAsync(TimelineManager.ExploreSectionCategory.CoubOfTheDay, 1, 20);
+            return timeline;
+        }
     }
 }
