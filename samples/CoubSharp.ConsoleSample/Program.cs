@@ -72,8 +72,12 @@ namespace CoubSharp.ConsoleSample
                 //var searchResult = await snippet.SearchChannelsAsync("best coub");
 
                 // Sample: Search among coubs
-                SearchSnippets snippet = new SearchSnippets();
-                var searchResult = await snippet.SearchCoubsAsync("best coub");
+                //SearchSnippets snippet = new SearchSnippets();
+                //var searchResult = await snippet.SearchCoubsAsync("best coub");
+
+                // Sample: Search among tags
+                //SearchSnippets snippet = new SearchSnippets();
+                //var searchResult = await snippet.SearchTagsAsync("dance music");
                 #endregion
             }).Wait();
         }

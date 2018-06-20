@@ -30,5 +30,12 @@ namespace CoubSharp.ConsoleSample.Snippets
             var searchResult = await coubService.GeneralSearch.SearchCoubsAsync(search, 1, 20, SearchService.CoubSearchOrderBy.ViewsCount);
             return searchResult;
         }
+
+        public async Task<IEnumerable<Tag>> SearchTagsAsync(string search)
+        {
+            ICoubService coubService = new CoubService(string.Empty);
+            var searchResult = await coubService.GeneralSearch.SearchTagsAsync(search);
+            return searchResult;
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace CoubSharp.Managers
         }
 
         internal const string SearchUrlBase = "/api/v2/search";
+        internal const string SearchTagsUrlBase = "/api/v2/tags/search";
 
         public SearchService()
         {
@@ -85,6 +86,20 @@ namespace CoubSharp.Managers
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
                 var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
+                return searchResult;
+            }
+        }
+
+        public async Task<IEnumerable<Tag>> SearchTagsAsync(string search)
+        {
+            if (string.IsNullOrWhiteSpace(search)) throw new ArgumentNullException("search", "search can't be null or empty");
+            var url = $"{CoubService.ApiUrlBase}{SearchTagsUrlBase}?title={search}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var searchResult = JsonConvert.DeserializeObject<IEnumerable<Tag>>(json);
                 return searchResult;
             }
         }
