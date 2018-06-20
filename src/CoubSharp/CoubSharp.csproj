@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="AuthorizationService.cs" />
     <Compile Include="CoubService.cs" />
+    <Compile Include="Dto\MakeRecoubDto.cs" />
+    <Compile Include="Managers\ChannelManager.cs" />
+    <Compile Include="Managers\RecoubManager.cs" />
     <Compile Include="Managers\TimelineManager.cs" />
     <Compile Include="Model\Authorization.cs" />
     <Compile Include="Model\Category.cs" />
