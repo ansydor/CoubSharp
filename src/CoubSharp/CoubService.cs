@@ -15,6 +15,8 @@ namespace CoubSharp
     {
         CoubManager Coubs { get; }
         TimelineManager Timelines { get; }
+        ChannelManager Channels { get; }
+        RecoubManager Recoubs { get; }
     }
     public class CoubService : ICoubService
     {
@@ -29,6 +31,9 @@ namespace CoubSharp
         internal string _acceessToken;
         public CoubManager Coubs { get; internal set; }
         public TimelineManager Timelines { get; internal set; }
+        public ChannelManager Channels { get; internal set; }
+
+        public RecoubManager Recoubs { get; internal set; }
 
         /// <summary>
         /// Create an instance of <see cref="CoubService"/> with access token
@@ -39,6 +44,8 @@ namespace CoubSharp
             _acceessToken = accessToken ?? throw new ArgumentNullException("accessToken", "accessToken can't be null");
             Coubs = new CoubManager(accessToken);
             Timelines = new TimelineManager(accessToken);
+            Channels = new ChannelManager(accessToken);
+            Recoubs = new RecoubManager(accessToken);
         }
 
         /// <summary>

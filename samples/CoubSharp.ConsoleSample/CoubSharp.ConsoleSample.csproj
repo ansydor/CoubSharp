@@ -44,6 +44,10 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Snippets\AuthorizeSnippets.cs" />
+    <Compile Include="Snippets\ChannelSnippets.cs" />
+    <Compile Include="Snippets\CoubSnippets.cs" />
+    <Compile Include="Snippets\TimelineSnippets.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

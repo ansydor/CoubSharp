@@ -52,7 +52,6 @@ namespace CoubSharp.Managers
                     { "coub[original_visibility_type]", editCoub.OriginalVisibilityType.ToString() },
                     { "coub[tags]", string.Join(",", editCoub.Tags) }
                 };
-
                 var formContent = new FormUrlEncodedContent(content);
                 HttpResponseMessage response = await httpClient.PostAsync(url, formContent);
                 response.EnsureSuccessStatusCode();

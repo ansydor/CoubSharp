@@ -8,6 +8,9 @@ using CoubSharp.Receivers;
 using CoubSharp.Managers;
 using CoubSharp.Model;
 using CoubSharp.Enums;
+using System.Net.Http;
+using System.IO;
+using CoubSharp.ConsoleSample.Snippets;
 
 namespace CoubSharp.ConsoleSample
 {
@@ -17,21 +20,56 @@ namespace CoubSharp.ConsoleSample
         {
             Task.Run(async () =>
             {
+                #region coub snippets
+                // Sample: Get coub by permalink value
+                //var auth = new AuthorizeSnippets();
+                //var token = await auth.AuthorizeAsync();
+                //CoubSnippets snippet = new CoubSnippets();
+                //var coub = await snippet.GetCoubAsync(token, "xyz");
 
-                IAuthorizationService authorizationService = new AuthorizationService("", "");
-                LocalhostServerCodeReceiver receiver = new LocalhostServerCodeReceiver("http://localhost:54325/");
+                // Sample: Edit coub by permalink value
+                //var auth = new AuthorizeSnippets();
+                //var token = await auth.AuthorizeAsync();
+                //CoubSnippets snippet = new CoubSnippets();
+                //var coub = await snippet.EditCoubAsync(token, "xyz", "New Title" ,new string[] { "new", "tags" });
 
-                var code = await authorizationService.AuthorizeCodeWithReceiverAsync(receiver, new string[] { AuthorizationService.Scope.LoggedIn, AuthorizationService.Scope.Recoub, AuthorizationService.Scope.Create, AuthorizationService.Scope.ChannelEdit, AuthorizationService.Scope.Follow });
-                var token = await authorizationService.AuthorizeTokenAsync("http://localhost:54325/", code);
+                // Sample: Recoub a coub by id value, looks like a repost, not making a new coub
+                //var auth = new AuthorizeSnippets();
+                //var token = await auth.AuthorizeAsync();
+                //CoubSnippets snippet = new CoubSnippets();
+                //var coub = await snippet.MakeRecoubAsync(token, 123456, 12345);
+                #endregion
 
-                ICoubService coubService = new CoubService(token.AccessToken);
-                var timeLineCannel = await coubService.Timelines.GetChannelTimelineAsync("royal.coubs", 1, 20, TimelineManager.ChannelTimelineOrderBy.LikesCount);
+                #region channel snippets
+                // Sample: Get channel by permalink
+                //var auth = new AuthorizeSnippets();
+                //var token = await auth.AuthorizeAsync();
+                //ChannelSnippets snippet = new ChannelSnippets();
+                //var channel = await snippet.GetChannelAsync(token, "xyzchannel");
+                #endregion
 
-                var timeLine = await coubService.Timelines.GetUserTimelineAsync(1, 20);
-                var coub = await coubService.Coubs.GetCoubAsync("xyz");
-                var coubEdit = await coubService.Coubs.EditCoubAsync(coub.Permalink, new EditCoub() { Title = "New title", ChannelId = coub.ChannelId, OriginalVisibilityType = OriginalVisibilityType.@public.ToString(), Tags = new string[] { "new", "tags" } });
+                #region timeline
+                // Sample: Get a tag timeline
+                //var auth = new AuthorizeSnippets();
+                //var token = await auth.AuthorizeAsync();
+                //TimelineSnippets snippet = new TimelineSnippets();
+                //var timeline = await snippet.GetTegTimelineAsync(token, "dance");
+
+                // Sample: Get user's timeline
+                //var auth = new AuthorizeSnippets();
+                //var token = await auth.AuthorizeAsync();
+                //TimelineSnippets snippet = new TimelineSnippets();
+                //var timeline = await snippet.GetUserTimelineAsync(token);
+                #endregion
+
             }).Wait();
-            
         }
+
+
+
+       
+
+
+
     }
 }
