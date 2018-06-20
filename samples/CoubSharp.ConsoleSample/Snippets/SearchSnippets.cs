@@ -23,5 +23,12 @@ namespace CoubSharp.ConsoleSample.Snippets
             var searchResult = await coubService.GeneralSearch.SearchChannelsAsync(search, 1, 20, SearchService.ChannelSearchOrderBy.FollowersCount);
             return searchResult;
         }
+
+        public async Task<GeneralSearchResult> SearchCoubsAsync(string search)
+        {
+            ICoubService coubService = new CoubService(string.Empty);
+            var searchResult = await coubService.GeneralSearch.SearchCoubsAsync(search, 1, 20, SearchService.CoubSearchOrderBy.ViewsCount);
+            return searchResult;
+        }
     }
 }
