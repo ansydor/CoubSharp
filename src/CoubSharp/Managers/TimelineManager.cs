@@ -37,6 +37,12 @@ namespace CoubSharp.Managers
             public const string NewestPopular = "newest_popular";
             public const string Oldest = "oldest";
         }
+        public static class ExploreSectionCategory 
+        {
+            public const string Newest = "newest";
+            public const string Random = "random";
+            public const string CoubOfTheDay = "coub_of_the_day";
+        }
 
         public  string AccessToken { get; set; }
         internal const string TimelineUrlBase = "/api/v2/timeline";
