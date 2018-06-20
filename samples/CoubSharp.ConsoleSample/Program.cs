@@ -62,6 +62,11 @@ namespace CoubSharp.ConsoleSample
                 //var timeline = await snippet.GetUserTimelineAsync(token);
                 #endregion
 
+                #region search
+                // Sample: General search by query
+                SearchSnippets snippet = new SearchSnippets();
+                var searchResult = await snippet.GeneralSearchAsync("best coub");
+                #endregion
             }).Wait();
         }
 

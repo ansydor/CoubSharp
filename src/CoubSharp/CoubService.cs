@@ -17,6 +17,7 @@ namespace CoubSharp
         TimelineManager Timelines { get; }
         ChannelManager Channels { get; }
         RecoubManager Recoubs { get; }
+        SearchService GeneralSearch { get; }
     }
     public class CoubService : ICoubService
     {
@@ -34,6 +35,7 @@ namespace CoubSharp
         public ChannelManager Channels { get; internal set; }
 
         public RecoubManager Recoubs { get; internal set; }
+        public SearchService GeneralSearch { get; internal set; }
 
         /// <summary>
         /// Create an instance of <see cref="CoubService"/> with access token
@@ -46,6 +48,7 @@ namespace CoubSharp
             Timelines = new TimelineManager(accessToken);
             Channels = new ChannelManager(accessToken);
             Recoubs = new RecoubManager(accessToken);
+            GeneralSearch = new SearchService();
         }
 
         /// <summary>
