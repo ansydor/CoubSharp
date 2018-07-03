@@ -46,6 +46,7 @@ namespace CoubSharp.Managers
 
         public  string AccessToken { get; set; }
         internal const string TimelineUrlBase = "/api/v2/timeline";
+        internal const string CustomTimelineUrlBase = "/api/v2/";
 
         public TimelineManager(string accessToken)
         {
@@ -136,6 +137,20 @@ namespace CoubSharp.Managers
         {
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
             var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}/likes/?page={page}&per_page={perPage}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+                return timeline;
+            }
+        }
+
+        public async Task<Timeline> GetCustomTimelineAsync(string customtimelineUrl,int page, int perPage)
+        {
+            if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
+            var url = $"{CoubService.ApiUrlBase}{CustomTimelineUrlBase}/{customtimelineUrl}?page={page}&per_page={perPage}";
             using (HttpClient httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.GetAsync(url);
