@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CoubSharp\CoubSharp.csproj">
-      <Project>{612436f3-f39b-48ab-81c7-70915514eced}</Project>
+      <Project>{1b594f53-365c-40e7-a359-5b3e313fcbf6}</Project>
       <Name>CoubSharp</Name>
     </ProjectReference>
   </ItemGroup>
