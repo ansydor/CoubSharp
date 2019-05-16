@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace CoubSharp.Managers
 {
-    public class SearchService
+    public class SearchService : IDisposable
     {
+        #region constants
         public static class GeneralSearchOrderBy
         {
             public const string LikesCount = "likes_count";
@@ -34,12 +35,22 @@ namespace CoubSharp.Managers
             public const string Newest = "newest";
             public const string Oldest = "oldest";
         }
+        #endregion
+        internal const string SearchUrlBase = "search";
+        internal const string SearchTagsUrlBase = "tags/search";
 
-        internal const string SearchUrlBase = "/api/v2/search";
-        internal const string SearchTagsUrlBase = "/api/v2/tags/search";
+        internal HttpClient _httpClient;
 
         public SearchService()
         {
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(CoubService.ApiUrlBase);
+        }
+
+        public SearchService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(CoubService.ApiUrlBase);
         }
 
         public async Task<GeneralSearchResult> SearchAsync(string search, int page, int perPage, string orderBy)
@@ -47,15 +58,12 @@ namespace CoubSharp.Managers
             if (string.IsNullOrWhiteSpace(search)) throw new ArgumentNullException("search", "search can't be null or empty");
             if (page < 0) throw new ArgumentOutOfRangeException("page", "page can't be negative");
             if (perPage < 0) throw new ArgumentOutOfRangeException("perPage", "perPage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{SearchUrlBase}?q={search}&page={page}&per_page={perPage}&order_by={orderBy}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
-                return searchResult;
-            }
+            var url = $"{SearchUrlBase}?q={search}&page={page}&per_page={perPage}&order_by={orderBy}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
+            return searchResult;
         }
 
         public async Task<GeneralSearchResult> SearchChannelsAsync(string search, int page, int perPage, string orderBy)
@@ -63,15 +71,12 @@ namespace CoubSharp.Managers
             if (string.IsNullOrWhiteSpace(search)) throw new ArgumentNullException("search", "search can't be null or empty");
             if (page < 0) throw new ArgumentOutOfRangeException("page", "page can't be negative");
             if (perPage < 0) throw new ArgumentOutOfRangeException("perPage", "perPage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{SearchUrlBase}/channels?q={search}&page={page}&per_page={perPage}&order_by={orderBy}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
-                return searchResult;
-            }
+            var url = $"{SearchUrlBase}/channels?q={search}&page={page}&per_page={perPage}&order_by={orderBy}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
+            return searchResult;
         }
 
         public async Task<GeneralSearchResult> SearchCoubsAsync(string search, int page, int perPage, string orderBy)
@@ -79,29 +84,28 @@ namespace CoubSharp.Managers
             if (string.IsNullOrWhiteSpace(search)) throw new ArgumentNullException("search", "search can't be null or empty");
             if (page < 0) throw new ArgumentOutOfRangeException("page", "page can't be negative");
             if (perPage < 0) throw new ArgumentOutOfRangeException("perPage", "perPage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{SearchUrlBase}/coubs?q={search}&page={page}&per_page={perPage}&order_by={orderBy}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
-                return searchResult;
-            }
+            var url = $"{SearchUrlBase}/coubs?q={search}&page={page}&per_page={perPage}&order_by={orderBy}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var searchResult = JsonConvert.DeserializeObject<GeneralSearchResult>(json);
+            return searchResult;
         }
 
         public async Task<IEnumerable<Tag>> SearchTagsAsync(string search)
         {
             if (string.IsNullOrWhiteSpace(search)) throw new ArgumentNullException("search", "search can't be null or empty");
-            var url = $"{CoubService.ApiUrlBase}{SearchTagsUrlBase}?title={search}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var searchResult = JsonConvert.DeserializeObject<IEnumerable<Tag>>(json);
-                return searchResult;
-            }
+            var url = $"{SearchTagsUrlBase}?title={search}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var searchResult = JsonConvert.DeserializeObject<IEnumerable<Tag>>(json);
+            return searchResult;
+        }
+
+        public void Dispose()
+        {
+            _httpClient?.Dispose();
         }
     }
 }

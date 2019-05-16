@@ -37,38 +37,44 @@ namespace CoubSharp.Managers
             public const string NewestPopular = "newest_popular";
             public const string Oldest = "oldest";
         }
-        public static class ExploreSectionCategory 
+        public static class ExploreSectionCategory
         {
             public const string Newest = "newest";
             public const string Random = "random";
             public const string CoubOfTheDay = "coub_of_the_day";
         }
 
-        public  string AccessToken { get; set; }
-        internal const string TimelineUrlBase = "/api/v2/timeline";
-        internal const string CustomTimelineUrlBase = "/api/v2/";
+        public string AccessToken { get; set; }
+        internal const string TimelineUrlBase = "timeline";
+        internal HttpClient _httpClient;
 
-        public TimelineManager(string accessToken)
+        public TimelineManager()
+        {
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(CoubService.ApiUrlBase);
+        }
+
+        public TimelineManager(string accessToken) : this()
         {
             AccessToken = accessToken;
         }
 
-        public TimelineManager()
+        public TimelineManager(string accessToken, HttpClient httpClient)
         {
+            AccessToken = accessToken;
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(CoubService.ApiUrlBase);
         }
 
         public async Task<Timeline> GetUserTimelineAsync(int page, int perPage)
         {
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}?access_token={AccessToken}&page={page}&per_page={perPage}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{TimelineUrlBase}?access_token={AccessToken}&page={page}&per_page={perPage}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
         public async Task<Timeline> GetChannelTimelineAsync(string channelId, int page, int perPage, string orderBy = null)
@@ -76,15 +82,12 @@ namespace CoubSharp.Managers
             if (string.IsNullOrWhiteSpace(channelId)) throw new ArgumentNullException("channelId", "channelId can't be null or empty");
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
             var order = orderBy == null ? string.Empty : $"&order_by={orderBy}";
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}/channel/{channelId}?page={page}&per_page={perPage}" + order;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{TimelineUrlBase}/channel/{channelId}?page={page}&per_page={perPage}" + order;
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
         public async Task<Timeline> GetTagFeedTimelineAsync(string tagName, int page, int perPage, string orderBy = null)
@@ -92,73 +95,58 @@ namespace CoubSharp.Managers
             if (string.IsNullOrWhiteSpace(tagName)) throw new ArgumentNullException("tagName", "tagName can't be null or empty");
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
             var order = orderBy == null ? string.Empty : $"&order_by={orderBy}";
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}/tag/{tagName}?page={page}&per_page={perPage}" + order;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{TimelineUrlBase}/tag/{tagName}?page={page}&per_page={perPage}" + order;
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
         public async Task<Timeline> GetHotTimelineAsync(int page, int perPage, string orderBy)
         {
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
             var order = orderBy == null ? string.Empty : $"&order_by={orderBy}";
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}/hot?page={page}&per_page={perPage}" + order;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{TimelineUrlBase}/hot?page={page}&per_page={perPage}" + order;
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
         public async Task<Timeline> GetExploreTimelineAsync(string categoryId, int page, int perPage)
         {
             if (string.IsNullOrWhiteSpace(categoryId)) throw new ArgumentNullException("categoryId", "categoryId can't be null or empty");
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}/explore/{categoryId}?page={page}&per_page={perPage}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{TimelineUrlBase}/explore/{categoryId}?page={page}&per_page={perPage}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
         public async Task<Timeline> GetLikesTimelineAsync(int page, int perPage)
         {
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{TimelineUrlBase}/likes/?page={page}&per_page={perPage}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{TimelineUrlBase}/likes/?page={page}&per_page={perPage}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
-        public async Task<Timeline> GetCustomTimelineAsync(string customtimelineUrl,int page, int perPage)
+        public async Task<Timeline> GetCustomTimelineAsync(string customtimelineUrl, int page, int perPage)
         {
             if (page < 0 || perPage < 0) throw new ArgumentOutOfRangeException("page or perpage", "page and perpage can't be negative");
-            var url = $"{CoubService.ApiUrlBase}{CustomTimelineUrlBase}/{customtimelineUrl}?page={page}&per_page={perPage}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var timeline = JsonConvert.DeserializeObject<Timeline>(json);
-                return timeline;
-            }
+            var url = $"{customtimelineUrl}?page={page}&per_page={perPage}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var timeline = JsonConvert.DeserializeObject<Timeline>(json);
+            return timeline;
         }
 
     }
