@@ -19,12 +19,12 @@ namespace CoubSharp
         RecoubManager Recoubs { get; }
         SearchService GeneralSearch { get; }
     }
-    public class CoubService : ICoubService
+    public class CoubService : ICoubService, IDisposable
     {
         /// <summary>
         /// Endpoint url base part
         /// </summary>
-        internal const string ApiUrlBase = "http://coub.com";
+        internal const string ApiUrlBase = "http://coub.com/api/v2/";
 
         public string ApplicationId { get; set; }
         public string ApplicationSecret { get; set; }
@@ -37,6 +37,8 @@ namespace CoubSharp
         public RecoubManager Recoubs { get; internal set; }
         public SearchService GeneralSearch { get; internal set; }
 
+        internal HttpClient httpClient;
+
         /// <summary>
         /// Create an instance of <see cref="CoubService"/> with access token
         /// </summary>
@@ -44,11 +46,14 @@ namespace CoubSharp
         public CoubService(string accessToken)
         {
             _acceessToken = accessToken ?? throw new ArgumentNullException("accessToken", "accessToken can't be null");
-            Coubs = new CoubManager(accessToken);
-            Timelines = new TimelineManager(accessToken);
-            Channels = new ChannelManager(accessToken);
-            Recoubs = new RecoubManager(accessToken);
-            GeneralSearch = new SearchService();
+
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ApiUrlBase);
+            Coubs = new CoubManager(accessToken, httpClient);
+            Timelines = new TimelineManager(accessToken, httpClient);
+            Channels = new ChannelManager(accessToken, httpClient);
+            Recoubs = new RecoubManager(accessToken, httpClient);
+            GeneralSearch = new SearchService(httpClient);
         }
 
         /// <summary>
@@ -56,6 +61,11 @@ namespace CoubSharp
         /// </summary>
         public CoubService()
         {
+        }
+
+        public void Dispose()
+        {
+            httpClient?.Dispose();
         }
     }
 }
