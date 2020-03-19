@@ -1,3 +1,5 @@
+![.NET Core](https://github.com/ansydor/CoubSharp/workflows/.NET%20Core/badge.svg)
+
 CoubSharp
 ===================
 Coub APIs Client Library for .NET
